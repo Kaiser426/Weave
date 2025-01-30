@@ -1,24 +1,23 @@
-.container {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-}
-
 .top-right-container {
-    display: flex;
-    justify-content: flex-end;
+    position: fixed; /* Keeps it "stuck" to the top-right corner */
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
 }
 
 .map-options {
     display: flex;
-    flex-direction: column;
-    white-space: normal;
-    text-align: center;
+    flex-direction: column; /* Stacks items vertically */
+    position: fixed; /* Keeps it "stuck" to the left */
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
 }
 
 .dice-options {
-    display: flex;
-    margin-top: auto;
+    position: fixed; /* Anchors it at the bottom of the window */
+    bottom: 10px;
+    z-index: 1000;
 }
 
 button {
