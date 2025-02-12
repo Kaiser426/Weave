@@ -65,3 +65,11 @@ button:active {
     background-color: #2196F3;
     color: #fff;
   }
+
+#notesContent {
+    border: 1px solid black;
+    height: 500px;
+    width: 500px;
+    overflow: auto;
+}
+
