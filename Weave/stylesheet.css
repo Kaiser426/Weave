@@ -1,5 +1,5 @@
 .top-right-container {
-    position: fixed;
+    position: fixed; /* Keeps it "stuck" to the top-right corner */
     top: 10px;
     right: 10px;
     z-index: 1000;
@@ -11,15 +11,15 @@
 
 .map-options {
     display: flex;
-    flex-direction: column;
-    position: fixed;
+    flex-direction: column; /* Stacks items vertically */
+    position: fixed; /* Keeps it "stuck" to the left */
     top: 10px;
     left: 10px;
     z-index: 1000;
 }
 
 .dice-options {
-    position: fixed;
+    position: fixed; /* Anchors it at the bottom of the window */
     bottom: 10px;
     z-index: 1000;
 }
@@ -38,17 +38,7 @@ button {
 }
 
 .verticalButtons {
-    font-family: 'Cinzel', serif;
-    font-size: 16px;
-    font-weight: bold;
-    color: #4a2f13;
-    background: linear-gradient(145deg, #f9e4b7, #f5d8a1);
-    padding: 12px 28px;
-    border: 3px solid #d4a760;
-    border-radius: 20px 5px;
-    box-shadow: inset 0 -3px 4px rgba(0, 0, 0, 0.1), 0 6px 8px rgba(0, 0, 0, 0.4);
-    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3);
-    width: 250px;
+    width:250px;
 }
 
 .markerButtons {
@@ -78,7 +68,7 @@ button:active {
     border: 1px solid #d3d3d3;
     text-align: center;
     display: none;
-}
+  }
 
 #notesHeader {
     padding: 10px;
@@ -86,6 +76,13 @@ button:active {
     z-index: 1002;
     background-color: #2196F3;
     color: #fff;
+}
+
+#notesTextArea {
+    border: 1px solid black;
+    height: 500px;
+    width: 500px;
+    overflow: auto;
 }
 
 .chat-container {
