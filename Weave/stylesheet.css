@@ -1,25 +1,25 @@
 .top-right-container {
-    position: fixed; /* Keeps it "stuck" to the top-right corner */
+    position: fixed;
     top: 10px;
     right: 10px;
     z-index: 1000;
 }
 
-.marker-container{
-    display:inline;
+.marker-container {
+    display: inline;
 }
 
 .map-options {
     display: flex;
-    flex-direction: column; /* Stacks items vertically */
-    position: fixed; /* Keeps it "stuck" to the left */
+    flex-direction: column;
+    position: fixed;
     top: 10px;
     left: 10px;
     z-index: 1000;
 }
 
 .dice-options {
-    position: fixed; /* Anchors it at the bottom of the window */
+    position: fixed;
     bottom: 10px;
     z-index: 1000;
 }
@@ -38,11 +38,21 @@ button {
 }
 
 .verticalButtons {
-    width:250px;
+    font-family: 'Cinzel', serif;
+    font-size: 16px;
+    font-weight: bold;
+    color: #4a2f13;
+    background: linear-gradient(145deg, #f9e4b7, #f5d8a1);
+    padding: 12px 28px;
+    border: 3px solid #d4a760;
+    border-radius: 20px 5px;
+    box-shadow: inset 0 -3px 4px rgba(0, 0, 0, 0.1), 0 6px 8px rgba(0, 0, 0, 0.4);
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3);
+    width: 250px;
 }
 
-.markerButtons{
-    display:none;
+.markerButtons {
+    display: none;
 }
 
 button:hover {
@@ -68,21 +78,14 @@ button:active {
     border: 1px solid #d3d3d3;
     text-align: center;
     display: none;
-  }
-  
-#notesheader {
+}
+
+#notesHeader {
     padding: 10px;
     cursor: move;
     z-index: 1002;
     background-color: #2196F3;
     color: #fff;
-  }
-
-#notesTextArea {
-    border: 1px solid black;
-    height: 500px;
-    width: 500px;
-    overflow: auto;
 }
 
 .chat-container {
@@ -106,9 +109,6 @@ button:active {
     color: #4a2f13;
     font-family: 'Cinzel', serif;
     font-weight: bold;
-    border-radius: 17px 2px 0 0;
-    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3);
-    cursor: move;
 }
 
 .chat-messages {
@@ -116,8 +116,6 @@ button:active {
     padding: 10px;
     overflow-y: auto;
     background: rgba(255, 255, 255, 0.7);
-    margin: 5px;
-    border-radius: 5px;
 }
 
 .chat-input-area {
@@ -128,44 +126,20 @@ button:active {
 
 .chat-input {
     flex-grow: 1;
-    padding: 8px;
+    padding: 5px;
     border: 2px solid #d4a760;
-    border-radius: 10px 2px;
-    background: #fff;
-    font-family: 'Cinzel', serif;
-    color: #4a2f13;
 }
 
 .chat-send-btn {
-    padding: 8px 15px;
+    padding: 5px 10px;
     font-family: 'Cinzel', serif;
-    font-size: 14px;
-    font-weight: bold;
-    color: #4a2f13;
     background: linear-gradient(145deg, #f9e4b7, #f5d8a1);
     border: 2px solid #d4a760;
-    border-radius: 10px 2px;
-    box-shadow: inset 0 -2px 3px rgba(0, 0, 0, 0.1);
-}
-
-.chat-send-btn:hover {
-    background: linear-gradient(145deg, #fdf0cb, #f9e2a4);
-    border-color: #e6b97a;
-    transform: translateY(-1px);
-}
-
-.chat-send-btn:active {
-    background: linear-gradient(145deg, #f0d9a1, #e3c48c);
-    border-color: #c19753;
-    transform: translateY(1px);
 }
 
 .chat-message {
     margin: 5px 0;
-    padding: 5px 10px;
+    padding: 5px;
     background: rgba(255, 255, 255, 0.9);
-    border-radius: 5px;
-    font-family: 'Cinzel', serif;
     color: #4a2f13;
 }
-
