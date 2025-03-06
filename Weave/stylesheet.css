@@ -23,6 +23,42 @@
     bottom: 10px;
     z-index: 1000;
 }
+.dice-buttons {
+    padding: 8px 16px;
+    width: 80px;
+}
+#diceResult {
+    margin: 10px;
+    font-weight: bold;
+    color: #ff4500;
+    text-shadow: 0 0 5px rgba(255, 69, 0, 0.5);
+}
+.roll-animation {
+    animation: rollDice 0.5s ease-in-out;
+}
+.dice-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 2px 0;
+}
+.delete-btn {
+    padding: 4px 8px;
+    background-color: #ff4444;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.delete-btn:hover {
+    background-color: #cc0000;
+}
+@keyframes rollDice {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(90deg); }
+    50% { transform: rotate(180deg); }
+    75% { transform: rotate(270deg); }
+    100% { transform: rotate(360deg); }
+}
 
 button {
     font-family: 'Cinzel', serif;
