@@ -5,7 +5,7 @@
     z-index: 1000;
 }
 
-.marker-container {
+.marker-container, .grid-container {
     display: inline;
 }
 
@@ -41,7 +41,7 @@ button {
     width:250px;
 }
 
-.markerButtons {
+.markerButtons, .gridButtons {
     display: none;
 }
 
