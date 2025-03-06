@@ -1,3 +1,7 @@
+body {
+    overflow: hidden;
+}
+
 .top-right-container {
     position: fixed; /* Keeps it "stuck" to the top-right corner */
     top: 10px;
