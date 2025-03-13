@@ -1,3 +1,302 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:1f26f0301078a7496921185581be896e15b4e8291efe89beee34f97ee28d1a39
-size 4020
+<!doctype html>
+<html>
+  <head>
+    <script src="https://cdn.socket.io/socket.io-3.0.0.js"></script>
+    <script src="https://pixijs.download/release/pixi.js"></script>
+    <script src="notesTempFile.js"></script>
+    <link rel="stylesheet" href="stylesheet.css">
+    <style>
+      .dice-options {
+        position: fixed;
+        bottom: 10px;
+        left: 10px;
+        z-index: 1000;
+      }
+      .dice-buttons {
+        padding: 8px 16px;
+        width: 80px;
+      }
+      #diceResult {
+        margin: 10px;
+        font-weight: bold;
+        color: #ff4500;
+        text-shadow: 0 0 5px rgba(255, 69, 0, 0.5);
+      }
+      .custom-dice-form {
+        margin-top: 10px;
+        display: flex;
+        gap: 5px;
+      }
+      .roll-animation {
+        animation: rollDice 0.5s ease-in-out;
+      }
+      .dice-container {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin: 2px 0;
+      }
+      .delete-btn {
+        padding: 4px 8px;
+        background-color: #ff4444;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+      .delete-btn:hover {
+        background-color: #cc0000;
+      }
+      @keyframes rollDice {
+        0% { transform: rotate(0deg); }
+        25% { transform: rotate(90deg); }
+        50% { transform: rotate(180deg); }
+        75% { transform: rotate(270deg); }
+        100% { transform: rotate(360deg); }
+      }
+      /* New styles for player list */
+      #playerList {
+        list-style: none;
+        padding: 0;
+        margin: 10px 0;
+      }
+      #playerList li {
+        padding: 5px;
+        background-color: #f0f0f0;
+        margin-bottom: 2px;
+        border-radius: 3px;
+      }
+    </style>
+  </head>
+  <body>
+    <script defer type="module" src="renderer.js"></script>
+
+    <div class="container">
+      <div class="map-options">
+        <button id="drawButton" class="verticalButtons">Draw</button>
+        <button id="drawButtonClear" class="verticalButtons">Clear Drawings</button>
+        <div class="marker-container">
+          <button id="addRemoveMarkers" class="verticalButtons">Add/Remove Marker</button>
+          <button id="circleButton" class="markerButtons">Circle</button>
+          <button id="squareButton" class="markerButtons">Square</button>
+          <button id="coneButton" class="markerButtons">Cone</button>
+          <button id="deleteButton" class="markerButtons">Delete</button>
+        </div>
+        <button class="verticalButtons">Add Grid</button>
+        <button id="importMapButton" class="verticalButtons">Import Map</button>
+        <button class="verticalButtons">Import Token</button>
+      </div>
+      <div class="top-right-container">
+        <button id="characterSheetButton">Character Sheet</button>
+        <button id="notesButton">Notes</button>
+        <div id="notes">
+          <div id="notesHeader">Notes</div>
+          <p>Move</p>
+          <p>this</p>
+          <p>DIV</p>
+        </div>
+        <button id="settingsButton">Settings</button>
+      </div>
+    </div>
+
+    <!-- New player list section -->
+    <div class="player-container">
+      <h2>Players</h2>
+      <ul id="playerList"></ul>
+    </div>
+
+    <div class="chat-container">
+        <div class="chat-header">Chat</div>
+        <div class="chat-messages">
+            <div class="chat-message">Welcome to the chat!</div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" class="chat-input" placeholder="Type a message...">
+            <button class="chat-send-btn">Send</button>
+        </div>
+    </div>
+
+    <div class="dice-options">
+      <button class="verticalButtons dice-buttons" onclick="rollDice(4)">D4</button>
+      <button class="verticalButtons dice-buttons" onclick="rollDice(6)">D6</button>
+      <button class="verticalButtons dice-buttons" onclick="rollDice(8)">D8</button>
+      <button class="verticalButtons dice-buttons" onclick="rollDice(10)">D10</button>
+      <button class="verticalButtons dice-buttons" onclick="rollDice(12)">D12</button>
+      <button class="verticalButtons dice-buttons" onclick="rollDice(20)">D20</button>
+      <span id="diceResult"></span>
+      <div class="custom-dice-form">
+        <input type="number" id="customSides" min="2" placeholder="Sides">
+        <button class="verticalButtons dice-buttons" onclick="addCustomDie()">Add Custom Die</button>
+      </div>
+    </div>
+
+    <script>
+        console.log('Script loaded');
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM fully loaded');
+
+            // Note: Update the port to 8080 to match server.js
+            const socket = io('http://localhost:8080');
+            const chatMessages = document.querySelector('.chat-messages');
+            const chatInput = document.querySelector('.chat-input');
+            const chatSendBtn = document.querySelector('.chat-send-btn');
+            const diceResult = document.getElementById('diceResult');
+            const diceOptions = document.querySelector('.dice-options');
+            const playerList = document.getElementById('playerList');
+
+            if (!chatMessages || !chatInput || !chatSendBtn || !playerList) {
+                console.error('Chat or player elements missing');
+                return;
+            }
+            console.log('Chat and player elements found');
+
+            socket.on('connect', () => {
+                console.log('Socket.IO connected');
+                addMessage('System: Connected');
+            });
+
+            socket.on('connect_error', (error) => {
+                console.error('Socket.IO error:', error);
+            });
+
+            // New: Handle name prompt from server
+            socket.on('promptName', (data) => {
+                const name = prompt(data.message);
+                if (name) {
+                    socket.emit('submitName', name);
+                }
+            });
+
+            // New: Handle welcome message
+            socket.on('welcome', (data) => {
+                alert(data.message);
+                addMessage(`System: ${data.message}`);
+            });
+
+            // New: Update player list when received
+            socket.on('playerUpdate', (players) => {
+                playerList.innerHTML = ''; // Clear current list
+                players.forEach(player => {
+                    const li = document.createElement('li');
+                    li.textContent = `${player.name} - ${player.role}`;
+                    playerList.appendChild(li);
+                });
+            });
+
+            function addMessage(message) {
+                console.log('Adding message:', message);
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'chat-message';
+                messageDiv.textContent = message;
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            chatSendBtn.addEventListener('click', () => {
+                console.log('Send clicked');
+                sendMessage();
+            });
+
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    console.log('Enter pressed');
+                    sendMessage();
+                }
+            });
+
+            function sendMessage() {
+                const message = chatInput.value.trim();
+                if (message) {
+                    console.log('Sending:', message);
+                    socket.emit('chatMessage', 'You: ' + message);
+                    addMessage('You: ' + message);
+                    chatInput.value = '';
+                }
+            }
+
+            socket.on('chatMessage', (message) => {
+                console.log('Received:', message);
+                addMessage(message);
+            });
+
+            window.rollDice = function(sides) {
+                const audio = new Audio('https://www.soundjay.com/buttons/button-3.mp3');
+                audio.play().catch(e => console.log('Audio play failed:', e));
+
+                diceResult.classList.add('roll-animation');
+                diceResult.textContent = 'Rolling...';
+
+                setTimeout(() => {
+                    const result = Math.floor(Math.random() * sides) + 1;
+                    const rollMessage = `You rolled a D${sides} and got: ${result}`;
+                    
+                    let displayText = rollMessage;
+                    if (sides === 20) {
+                        if (result === 20) {
+                            displayText = `CRITICAL HIT! ${rollMessage}`;
+                            diceResult.style.color = '#00ff00';
+                        } else if (result === 1) {
+                            displayText = `CRITICAL MISS! ${rollMessage}`;
+                            diceResult.style.color = '#ff0000';
+                        } else {
+                            diceResult.style.color = '#ff4500';
+                        }
+                    }
+
+                    diceResult.textContent = displayText;
+                    socket.emit('chatMessage', rollMessage);
+                    addMessage(rollMessage);
+                    
+                    setTimeout(() => {
+                        diceResult.classList.remove('roll-animation');
+                    }, 500);
+                }, 500);
+            }
+
+            window.addCustomDie = function() {
+                const customSides = parseInt(document.getElementById('customSides').value);
+                if (isNaN(customSides) || customSides < 2) {
+                    diceResult.textContent = 'Please enter a valid number (2 or more)';
+                    return;
+                }
+
+                const existingDice = Array.from(document.querySelectorAll('.dice-buttons'))
+                    .map(btn => parseInt(btn.textContent.replace('D', '')));
+                if (existingDice.includes(customSides)) {
+                    diceResult.textContent = `D${customSides} already exists!`;
+                    return;
+                }
+
+                const diceContainer = document.createElement('div');
+                diceContainer.className = 'dice-container';
+
+                const newDie = document.createElement('button');
+                newDie.className = 'verticalButtons dice-buttons';
+                newDie.textContent = `D${customSides}`;
+                newDie.onclick = () => rollDice(customSides);
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'delete-btn';
+                deleteBtn.textContent = 'X';
+                deleteBtn.onclick = () => deleteCustomDie(diceContainer, customSides);
+
+                diceContainer.appendChild(newDie);
+                diceContainer.appendChild(deleteBtn);
+
+                diceOptions.insertBefore(diceContainer, diceResult);
+                document.getElementById('customSides').value = '';
+                diceResult.textContent = `Added D${customSides} successfully!`;
+            }
+
+            window.deleteCustomDie = function(container, sides) {
+                container.remove();
+                diceResult.textContent = `Removed D${sides} successfully!`;
+            }
+
+            setTimeout(() => {
+                addMessage('Test: Loaded successfully');
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
