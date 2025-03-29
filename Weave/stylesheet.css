@@ -1,5 +1,7 @@
 body {
     overflow: hidden;
+    padding: 0;
+    margin: 0;
 }
 
 .top-right-container {
@@ -16,14 +18,14 @@ body {
 .map-options {
     display: flex;
     flex-direction: column; /* Stacks items vertically */
-    position: fixed; /* Keeps it "stuck" to the left */
+    position: fixed; /* Keeps group on the left */
     top: 10px;
     left: 10px;
     z-index: 1000;
 }
 
 .dice-options {
-    position: fixed; /* Anchors it at the bottom of the window */
+    position: fixed; /* Anchors group to the bottom of the window */
     bottom: 10px;
     z-index: 1000;
 }
@@ -65,7 +67,7 @@ button:active {
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
 }
 
-#notes {
+#notesContainer {
     position: fixed;
     z-index: 1001;
     background-color: #f1f1f1;
@@ -89,3 +91,111 @@ button:active {
     overflow: auto;
 }
 
+#encounterContainer {
+    width: 400px;
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    top: 350px;
+    left: 350px;
+    max-height: 396px;
+    overflow-y: scroll;
+}
+
+#encounterContainer::-webkit-scrollbar {
+    display: none;
+}
+
+#encounterHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: #333;
+    color: white;
+    border-radius: 6px;
+}
+
+.round {
+    font-size: 1.2em;
+}
+
+.headerButtons {
+    display: flex;
+    gap: 5px;
+}
+
+.headerButtons button {
+    background: white;
+    color: black;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: 16px;
+}
+
+.encounterList {
+    margin-top: 10px;
+}
+
+.creatureItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.creatureItem input {
+    flex: 1;
+    padding: 5px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.deleteCreature {
+    background: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+.listButtons {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.listButtons button {
+    background: white;
+    color: black;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: 16px;
+}
+
+.creatureItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px;
+    border: 1px solid gray;
+    margin-bottom: 5px;
+}
+
+.activeTurn {
+    outline: 2px solid blue;
+}
