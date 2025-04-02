@@ -13,13 +13,11 @@ body {
 .map-options {
     display: flex;
     position: fixed;
-    z-index: 1000;
 }
 
 .dice-options {
     position: fixed;
     bottom: 10px;
-    z-index: 1000;
 }
 
 button {
@@ -38,8 +36,8 @@ label {
     text-align: center;
     font-family: 'Cinzel', serif;
     font-weight: bold;
-    background: linear-gradient(145deg, #f9e4b7, #f5d8a1);
     border: 3px solid #d4a760;
+    background-color: #d4a760;
     box-shadow: inset 0 -3px 4px rgba(0, 0, 0, 0.1), 0 6px 8px rgba(0, 0, 0, 0.4);
     text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3);
 }
@@ -61,9 +59,9 @@ button:active {
 }
 
 #markerButtonsContainer {
-    display: flex;
+    display: none;
     flex-direction: column;
-    visibility: hidden;
+    /*visibility: hidden;*/
     gap: 5px;
     margin-top: 5px;
 }
@@ -75,9 +73,9 @@ button:active {
 }
 
 #gridElementsContainer {
-    display: flex;
+    display: none;
     flex-direction: column;
-    visibility: hidden;
+   /*visibility: hidden;*/
     gap: 5px;
     margin-top: 5px;
     max-width: 80px;
@@ -85,7 +83,6 @@ button:active {
 
 #notesContainer, #notes, #characterSheet {
     position: fixed;
-    z-index: 1001;
     background-color: #f1f1f1;
     border: 1px solid #d3d3d3;
     text-align: center;
@@ -95,7 +92,6 @@ button:active {
 #notesHeader, #characterSheetHeader {
     padding: 10px;
     cursor: move;
-    z-index: 1002;
     background-color: #2196F3;
     color: #fff;
 }
@@ -117,7 +113,6 @@ button:active {
     border: 3px solid #d4a760;
     border-radius: 20px 5px;
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
-    z-index: 1000;
     display: flex;
     flex-direction: column;
 }
@@ -125,7 +120,6 @@ button:active {
 .chat-header {
     padding: 10px;
     background-color: #d4a760;
-    color: #4a2f13;
     font-family: 'Cinzel', serif;
     font-weight: bold;
 }
@@ -160,7 +154,7 @@ button:active {
     margin: 5px 0;
     padding: 5px;
     background: rgba(255, 255, 255, 0.9);
-    color: #4a2f13;
+    overflow-wrap: break-word;
 }
 
 #playerList {

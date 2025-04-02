@@ -1,0 +1,29 @@
+body {
+    font-family: 'Cinzel', serif;
+    font-size: 20px;
+    color: #d4a760;
+    font-weight: bold;
+    background-color: gray;
+}
+
+#centerContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#weave {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+input, select, button {
+    font-size: 1rem;
+}
