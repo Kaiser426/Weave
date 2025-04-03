@@ -1,84 +1,45 @@
-.top-right-container {
-    position: fixed; /* Keeps it "stuck" to the top-right corner */
-    top: 10px;
-    right: 10px;
-    z-index: 1000;
+body {
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
 }
 
-.marker-container, .grid-container {
-    display: inline;
+.marker-container {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
 }
 
 .map-options {
     display: flex;
-    flex-direction: column; /* Stacks items vertically */
-    position: fixed; /* Keeps it "stuck" to the left */
-    top: 10px;
-    left: 10px;
-    z-index: 1000;
+    position: fixed;
 }
 
 .dice-options {
-    position: fixed; /* Anchors it at the bottom of the window */
+    position: fixed;
     bottom: 10px;
-    z-index: 1000;
-}
-.dice-buttons {
-    padding: 8px 16px;
-    width: 80px;
-}
-#diceResult {
-    margin: 10px;
-    font-weight: bold;
-    color: #ff4500;
-    text-shadow: 0 0 5px rgba(255, 69, 0, 0.5);
-}
-.roll-animation {
-    animation: rollDice 0.5s ease-in-out;
-}
-.dice-container {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    margin: 2px 0;
-}
-.delete-btn {
-    padding: 4px 8px;
-    background-color: #ff4444;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-.delete-btn:hover {
-    background-color: #cc0000;
-}
-@keyframes rollDice {
-    0% { transform: rotate(0deg); }
-    25% { transform: rotate(90deg); }
-    50% { transform: rotate(180deg); }
-    75% { transform: rotate(270deg); }
-    100% { transform: rotate(360deg); }
 }
 
 button {
     font-family: 'Cinzel', serif;
     font-size: 16px;
     font-weight: bold;
-    color: #4a2f13;
     background: linear-gradient(145deg, #f9e4b7, #f5d8a1);
     padding: 12px 28px;
     border: 3px solid #d4a760;
-    border-radius: 20px 5px;
     box-shadow: inset 0 -3px 4px rgba(0, 0, 0, 0.1), 0 6px 8px rgba(0, 0, 0, 0.4);
     text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3);
+    height: 50px;
 }
 
-.verticalButtons {
-    width:250px;
-}
-
-.markerButtons, .gridButtons {
-    display: none;
+label {
+    text-align: center;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+    border: 3px solid #d4a760;
+    background-color: #d4a760;
+    box-shadow: inset 0 -3px 4px rgba(0, 0, 0, 0.1), 0 6px 8px rgba(0, 0, 0, 0.4);
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3);
 }
 
 button:hover {
@@ -97,51 +58,49 @@ button:active {
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
 }
 
-#notes {
+#markerButtonsContainer {
+    display: none;
+    flex-direction: column;
+    /*visibility: hidden;*/
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.grid-container {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+#gridElementsContainer {
+    display: none;
+    flex-direction: column;
+   /*visibility: hidden;*/
+    gap: 5px;
+    margin-top: 5px;
+    max-width: 80px;
+}
+
+#notesContainer, #notes, #characterSheet {
     position: fixed;
-    z-index: 1001;
     background-color: #f1f1f1;
     border: 1px solid #d3d3d3;
     text-align: center;
     display: none;
 }
 
-#notesHeader {
+#notesHeader, #characterSheetHeader {
     padding: 10px;
     cursor: move;
-    z-index: 1002;
     background-color: #2196F3;
     color: #fff;
 }
 
-#notesTextArea {
+#notesTextArea, #characterSheetFrame {
     border: 1px solid black;
     height: 500px;
     width: 500px;
     overflow: auto;
-}
-
-#characterSheet {
-    position: fixed;
-    z-index: 1001;
-    background-color: #f1f1f1;
-    border: 1px solid #d3d3d3;
-    text-align: center;
-    display: none;
-}
-
-#characterSheetHeader {
-    padding: 10px;
-    cursor: move;
-    z-index: 1002;
-    background-color: #2196F3;
-    color: #fff;
-}
-
-#characterSheetFrame {
-    width: 100%;
-    height: 500px;
-    border: 1px solid black;
 }
 
 .chat-container {
@@ -154,7 +113,6 @@ button:active {
     border: 3px solid #d4a760;
     border-radius: 20px 5px;
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
-    z-index: 1000;
     display: flex;
     flex-direction: column;
 }
@@ -162,7 +120,6 @@ button:active {
 .chat-header {
     padding: 10px;
     background-color: #d4a760;
-    color: #4a2f13;
     font-family: 'Cinzel', serif;
     font-weight: bold;
 }
@@ -197,5 +154,161 @@ button:active {
     margin: 5px 0;
     padding: 5px;
     background: rgba(255, 255, 255, 0.9);
-    color: #4a2f13;
+    overflow-wrap: break-word;
+}
+
+#playerList {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+#playerList li {
+    padding: 5px;
+    background-color: #f0f0f0;
+    margin-bottom: 2px;
+    border-radius: 3px;
+}
+
+.dice-buttons {
+    padding: 8px 16px;
+    width: 80px;
+}
+
+#diceResult {
+    margin: 10px;
+    font-weight: bold;
+    color: #ff4500;
+    text-shadow: 0 0 5px rgba(255, 69, 0, 0.5);
+}
+
+.roll-animation {
+    animation: rollDice 0.5s ease-in-out;
+}
+
+@keyframes rollDice {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(90deg); }
+    50% { transform: rotate(180deg); }
+    75% { transform: rotate(270deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#encounterContainer {
+    width: 400px;
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    top: 350px;
+    left: 350px;
+    max-height: 396px;
+    overflow-y: scroll;
+    display: none;
+}
+
+#encounterContainer::-webkit-scrollbar {
+    display: none;
+}
+
+#encounterHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: #333;
+    color: white;
+    border-radius: 6px;
+}
+
+.round {
+    font-size: 1.2em;
+}
+
+.headerButtons {
+    display: flex;
+    gap: 5px;
+}
+
+.headerButtons button {
+    background: white;
+    color: black;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: 16px;
+    height: auto;
+}
+
+.encounterList {
+    margin-top: 10px;
+}
+
+.creatureItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.creatureItem input {
+    flex: 1;
+    padding: 5px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.deleteCreature {
+    background: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: 14px;
+    height: auto;
+}
+
+.listButtons {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.listButtons button {
+    background: white;
+    color: black;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: 16px;
+    height: auto;
+}
+
+.creatureItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px;
+    border: 1px solid gray;
+    margin-bottom: 5px;
+}
+
+.activeTurn {
+    outline: 2px solid blue;
+}
+
+#confirmGridButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
