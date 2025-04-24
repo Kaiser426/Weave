@@ -141,6 +141,10 @@ label {
     display: none;
 }
 
+#characterSheet {
+    width: 30vw;
+}
+
 #notesHeader, #characterSheetHeader {
     padding: 10px;
     cursor: move;
@@ -148,11 +152,17 @@ label {
     color: #fff;
 }
 
-#notesTextArea, #characterSheetFrame {
+#notesTextArea {
     border: 1px solid black;
     height: 500px;
     width: 500px;
     overflow: auto;
+}
+
+#characterSheetFrame {
+    border: 1px solid black;
+    width: 30vw;
+    height: 60vh;
 }
 
 /* === Chat System === */
